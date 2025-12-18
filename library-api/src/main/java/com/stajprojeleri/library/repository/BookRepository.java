@@ -1,10 +1,14 @@
 package com.stajprojeleri.library.repository;
 
-public class BookRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+import com.stajprojeleri.library.entity.Book;
 
-	}
+
+@Repository
+public interface BookRepository extends JpaRepository<Book ,Integer> {
+	
+	
 
 }
