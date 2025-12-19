@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stajprojeleri.library.entity.Book;
 import com.stajprojeleri.library.service.IBookService;
 import com.stajprojeleri.library.service.impl.BookServiceImpl;
+import com.stajprojeleri.library.dto.DtoBook;
+import com.stajprojeleri.library.dto.DtoBookIU;
 import com.stajprojeleri.library.entity.*;
 
 @RestController
-@RequestMapping(" /api/books")
+@RequestMapping("/api/books")
 
 
 public class BookController {
@@ -31,16 +33,15 @@ public class BookController {
 	private IBookService bookService;
 	
 	@PostMapping
-	public Book saveBook(@RequestBody Book book) {
-		book.setId(null);
-		return bookService.saveBook(book);
+	public DtoBook saveBook(@RequestBody DtoBookIU dtoBookIU) {
+		return bookService.saveBook(dtoBookIU);
 	}
 	 @GetMapping
-	    public List<Book> getAllBooks() {
+	    public List<DtoBook> getAllBooks() {
 	        return bookService.getAllBooks();
 	    }
 	 @GetMapping(path="/{id}")
-	 public Book getBook(@PathVariable(name="id") Integer id){
+	 public DtoBook getBook(@PathVariable(name="id") Integer id){
 		 return bookService.getBookById(id);
 		 
 	 }
@@ -56,9 +57,9 @@ public class BookController {
 	 
 	 @PutMapping(path = "/{id}")
 	 
-	 public Book updateBook(@PathVariable(name ="id") Integer id , @RequestBody Book updateBook) {
+	 public DtoBook updateBook(@PathVariable(name ="id") Integer id , @RequestBody DtoBookIU dtoBookIU) {
 		 	
-		 return bookService.updateBook(id, updateBook);
+		 return bookService.updateBook(id, dtoBookIU);
 	 }
 	 
 	 

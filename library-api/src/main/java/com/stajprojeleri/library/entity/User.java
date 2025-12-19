@@ -26,8 +26,17 @@ public class User {
 		@GeneratedValue(strategy = GenerationType.IDENTITY)  //Otomatik olarak id artırmak
 		private Integer id;
 		
-		@Column(name = "usurname", nullable = false)
+		@Column(name = "name", nullable = false)
+		private String name;
+		
+		@Column(name = "surname", nullable = false)
+		private String surname;
+		
+		@Column(name = "username", nullable = false)
 		private String username;
+		
+		@Column(name = "email", nullable = false)
+		private String email;
 		
 		@Column(name = "password", nullable = false)
 		private String password;

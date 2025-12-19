@@ -5,12 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.stajprojeleri.library.dto.DtoUser;
+import com.stajprojeleri.library.dto.DtoUserIU;
 import com.stajprojeleri.library.entity.User;
 
 
 public interface IUserService {
 	
-	public User saveUser(User user);
+	public DtoUser saveUser(DtoUserIU dtoUserIU);
 	
 	public User getUser(String username , String password);
 

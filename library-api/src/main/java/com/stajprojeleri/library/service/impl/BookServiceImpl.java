@@ -1,58 +1,90 @@
 package com.stajprojeleri.library.service.impl;
 
+import com.stajprojeleri.library.dto.DtoBook;
+import com.stajprojeleri.library.dto.DtoBookIU;
 import com.stajprojeleri.library.entity.*;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.BeanCreationNotAllowedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.support.WebRequestDataBinder;
 
 import com.stajprojeleri.library.repository.BookRepository;
-import com.stajprojeleri.library.security.SecurityConfig;
+import com.stajprojeleri.library.repository.UserRepository;
 import com.stajprojeleri.library.service.IBookService;
+
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 @Service
 public class BookServiceImpl implements IBookService {
 
-    private final SecurityConfig securityConfig;
+ 
+
+   
 	
 	@Autowired
 	private BookRepository bookRepository;
 
-    BookServiceImpl(SecurityConfig securityConfig) {
-        this.securityConfig = securityConfig;
-    }
+   
 	
 	@Override
-	public Book saveBook(Book book) {
-		return bookRepository.save(book);
+	public DtoBook saveBook( DtoBookIU dtoBookIU) {
+		DtoBook response = new DtoBook();
+		Book book = new Book();
+		BeanUtils.copyProperties(dtoBookIU,book);
+		
+		Book dbbook = bookRepository.save(book);	// Entity olmalı
+
+		BeanUtils.copyProperties(dbbook,response);
+		return response;
 		
 	}
 	@Override
-	public List<Book> getAllBooks() {
-		return bookRepository.findAll();
+	public List<DtoBook> getAllBooks() {
+		List<DtoBook> dtoList = new ArrayList<>();
+		
+		List<Book> bookList = bookRepository.findAll();
+		
+		for (Book  book: bookList ) {
+			
+			DtoBook dtoBook =new DtoBook();
+			BeanUtils.copyProperties(bookList, dtoBook);
+			dtoList.add(dtoBook);
+			
+		}
+		return dtoList;
+		
 	}
 	@Override
-	public Book getBookById(Integer id) {
-		
+	public DtoBook getBookById(Integer id) {
+	DtoBook dtoBook = new DtoBook();
 	Optional<Book> optional =	bookRepository.findById(id);
 		
 	if(optional.isPresent()) {
-		return optional.get();
+		Book dbbooks = optional.get();
+		
+	BeanUtils.copyProperties(dbbooks, dtoBook);
 		
 	}
 		
-		return null;
+		return dtoBook;
 	}
 
 	@Override
 	public void deleteBookById(Integer id) {
-		Book dbbook = getBookById(id);
-		if(dbbook != null) {
-			bookRepository.delete(dbbook);
+		Optional<Book> optional =	bookRepository.findById(id);
+		
+		if(optional.isPresent()) {
+			bookRepository.delete(optional.get());
 		}
 		
 	}
@@ -65,20 +97,30 @@ public class BookServiceImpl implements IBookService {
 	}
 
 	@Override
-	public Book updateBook(Integer id, Book updateBook) {
-		Book dbBook =	getBookById(id);
+	public DtoBook updateBook(Integer id, DtoBookIU dtoBookIU) {
+		DtoBook dtoBook =	getBookById(id);
 		
-		if(dbBook != null) {
-			dbBook.setBookName(updateBook.getBookName());
-			dbBook.setPageCount(updateBook.getPageCount());
-			dbBook.setAuthor(updateBook.getAuthor());
-			dbBook.setRegisterDate(updateBook.getRegisterDate());
-			dbBook.setLoanDate(updateBook.getLoanDate());
-			dbBook.setCategoryString(updateBook.getCategoryString());
+		Optional<Book> optional =	bookRepository.findById(id);
+		
+		if(optional.isPresent()) {
+			Book dbbook = optional.get();
 			
-		   return bookRepository.save(dbBook);
+			bookRepository.delete(optional.get());
 			
+			dbbook.setBookName(dtoBookIU.getBookName());
+			dbbook.setPageCount(dtoBookIU.getPageCount());
+			dbbook.setAuthor(dtoBookIU.getAuthor());
+			dbbook.setRegisterDate(dtoBookIU.getRegisterDate());
+			dbbook.setLoanDate(dtoBookIU.getLoanDate());
+			dbbook.setCategoryString(dtoBookIU.getCategoryString());
+			
+			Book updateBook = bookRepository.save(dbbook);
+			
+			BeanUtils.copyProperties(updateBook, dtoBook);
+			
+			return dtoBook;
 		}
+		
 		return null;
 	}
 	

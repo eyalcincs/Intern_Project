@@ -2,6 +2,8 @@ package com.stajprojeleri.library.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.stajprojeleri.library.dto.DtoUser;
+import com.stajprojeleri.library.dto.DtoUserIU;
 import com.stajprojeleri.library.entity.User;
 import com.stajprojeleri.library.service.IUserService;
 
@@ -26,9 +28,9 @@ public class AuthController {
 	private IUserService userService;
 	
 	@PostMapping("/register")
-	public User saveUser(@RequestBody User user) {
-		user.setId(null);
-		return userService.saveUser(user);
+	public DtoUser saveUser(@RequestBody DtoUserIU dtoUserIU) {
+
+		return userService.saveUser(dtoUserIU);
 	}
 	
 	@GetMapping(path = "/login")
