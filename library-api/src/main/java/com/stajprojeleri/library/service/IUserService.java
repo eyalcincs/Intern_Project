@@ -15,5 +15,7 @@ public interface IUserService {
 	public DtoUser saveUser(DtoUserIU dtoUserIU);
 	
 	public User getUser(String username , String password);
+	
+	public User register(User user);
 
 }

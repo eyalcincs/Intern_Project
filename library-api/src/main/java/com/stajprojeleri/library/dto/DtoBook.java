@@ -14,11 +14,16 @@ import lombok.Setter;
 
 
 	public class DtoBook {
+	
+	private Integer id;
 
 	private String bookName;
 	
-	private String categoryString;
-
-	private LocalDate registerDate; 
-
+	private int pageCount;
+	
+	private String 	author;
+	
+	private String category;
+	
+	private LocalDate loanDate;
 }

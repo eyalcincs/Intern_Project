@@ -20,7 +20,7 @@ public class DtoBookIU {
 	
 	private String 	author;
 	
-	private String categoryString;
+	private String category;
 
 	private LocalDate registerDate; 
 	

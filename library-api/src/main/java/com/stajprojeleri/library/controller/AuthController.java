@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping(" /api/auth")
+@RequestMapping("/api/auth")
 
 public class AuthController {
 	
@@ -33,11 +33,9 @@ public class AuthController {
 		return userService.saveUser(dtoUserIU);
 	}
 	
-	@GetMapping(path = "/login")
-	public User getUser( 
-	@RequestParam  String username,
-    @RequestParam  String password) {
-		return userService.getUser(username,password);
+	@PostMapping(path = "/login")
+	public String  login(@RequestBody User user) {
+		return "Success";
 	}
 
 

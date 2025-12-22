@@ -38,7 +38,7 @@ public class Book {
 	private String 	author;
 	
 	@Column(name = "category",nullable = true)
-	private String categoryString;
+	private String category;
 	
 	@Column(name = "register_date", nullable = false)
 	private LocalDate registerDate; 

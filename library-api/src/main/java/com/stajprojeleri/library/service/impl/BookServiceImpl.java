@@ -27,15 +27,9 @@ import ch.qos.logback.core.joran.util.beans.BeanUtil;
 @Service
 public class BookServiceImpl implements IBookService {
 
- 
-
-   
-	
 	@Autowired
 	private BookRepository bookRepository;
 
-   
-	
 	@Override
 	public DtoBook saveBook( DtoBookIU dtoBookIU) {
 		DtoBook response = new DtoBook();
@@ -48,6 +42,7 @@ public class BookServiceImpl implements IBookService {
 		return response;
 		
 	}
+	
 	@Override
 	public List<DtoBook> getAllBooks() {
 		List<DtoBook> dtoList = new ArrayList<>();
@@ -57,13 +52,16 @@ public class BookServiceImpl implements IBookService {
 		for (Book  book: bookList ) {
 			
 			DtoBook dtoBook =new DtoBook();
-			BeanUtils.copyProperties(bookList, dtoBook);
+			
+			BeanUtils.copyProperties(book, dtoBook);
+			
 			dtoList.add(dtoBook);
 			
 		}
 		return dtoList;
 		
 	}
+	
 	@Override
 	public DtoBook getBookById(Integer id) {
 	DtoBook dtoBook = new DtoBook();
@@ -112,7 +110,7 @@ public class BookServiceImpl implements IBookService {
 			dbbook.setAuthor(dtoBookIU.getAuthor());
 			dbbook.setRegisterDate(dtoBookIU.getRegisterDate());
 			dbbook.setLoanDate(dtoBookIU.getLoanDate());
-			dbbook.setCategoryString(dtoBookIU.getCategoryString());
+			dbbook.setCategory(dtoBookIU.getCategory());
 			
 			Book updateBook = bookRepository.save(dbbook);
 			
@@ -126,8 +124,4 @@ public class BookServiceImpl implements IBookService {
 	
 	
 	
-	
-	
-	
-
 }
