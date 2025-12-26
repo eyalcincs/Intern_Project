@@ -5,7 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stajprojeleri.library.dto.DtoUser;
 import com.stajprojeleri.library.dto.DtoUserIU;
 import com.stajprojeleri.library.entity.User;
+import com.stajprojeleri.library.security.AuthRequest;
+import com.stajprojeleri.library.security.AuthResponse;
+
 import com.stajprojeleri.library.service.IUserService;
+
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -22,7 +27,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @RequestMapping("/api/auth")
 
-public class AuthController {
+public class AuthController implements IAuthController {
+	
 	
 	@Autowired
 	private IUserService userService;
@@ -33,10 +39,19 @@ public class AuthController {
 		return userService.saveUser(dtoUserIU);
 	}
 	
-	@PostMapping(path = "/login")
-	public String  login(@RequestBody User user) {
-		return "Success";
+	
+	
+	@PostMapping(path = "/Login")
+	public AuthResponse login(@RequestBody AuthRequest request) {
+		
+		return userService.login(request);
+		
 	}
 
 
+	@GetMapping(path="/{id}")
+	@Override
+	public DtoUser findUserById(@PathVariable(value="id")Integer id) {
+		return userService.findUserById(id);
+	}
 }

@@ -17,5 +17,7 @@ public class DtoUser {
 	private String surname;
 	
 	private String username;
+	
+	private String email;
 
 }

@@ -14,6 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DtoBookIU {
 	
+	private Integer id;
+	
 	private String bookName;
 	
 	private int pageCount;
