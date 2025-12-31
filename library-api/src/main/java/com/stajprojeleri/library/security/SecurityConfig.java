@@ -34,7 +34,7 @@ import org.springframework.security.web.SecurityFilterChain;
 	        http
 	            .csrf(csrf -> csrf.disable())
 	            .authorizeHttpRequests(request -> request.requestMatchers(AUTHENTICATE,REGISTER,"/swagger-ui/**","/v3/api-docs/**",
-                 "/swagger-ui.html", "/user") // Bu urller request olursa eğer her şeye izin ver controllera geçebilir.
+                 "/swagger-ui.html", "/{id}") // Bu urller request olursa eğer her şeye izin ver controllera geçebilir.
 	            .permitAll()
 	            .anyRequest()	// Bu url dışındaki herşeye de yetkilendirme yap diyoruz.
 	            .authenticated())
