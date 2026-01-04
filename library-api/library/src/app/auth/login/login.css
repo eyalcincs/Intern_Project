@@ -1,0 +1,98 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(90deg, #2f80ed 0%, #29c6a0 100%);
+}
+
+.card {
+  width: 420px;
+  max-width: 92vw;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 26px 28px 18px;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.18);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  margin-top: 6px;
+}
+
+.input {
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  padding: 0 12px;
+  outline: none;
+  font-size: 13px;
+  background: #fff;
+}
+
+.input:focus {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.btn {
+  margin-top: 10px;
+  height: 40px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background: #0b66ff;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(0.96);
+}
+
+.bottom {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: #374151;
+}
+
+.bottom a {
+  color: #0b66ff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.bottom a:hover {
+  text-decoration: underline;
+}

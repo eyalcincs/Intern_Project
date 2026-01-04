@@ -1,0 +1,133 @@
+<div class="page">
+  <div class="container py-4" style="max-width: 900px;">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h3 class="m-0">Kitap Kayıt</h3>
+      <a class="btn btn-outline-secondary" routerLink="/books">← Kütüphaneye Dön</a>
+    </div>
+
+    <!-- Alert -->
+    <div *ngIf="errorMsg" class="alert alert-danger" role="alert">
+      {{ errorMsg }}
+    </div>
+    <div *ngIf="successMsg" class="alert alert-success" role="alert">
+      {{ successMsg }}
+    </div>
+
+    <div class="card form-card p-4">
+      <form #f="ngForm" (ngSubmit)="submit(f)">
+
+        <div class="row g-3">
+          <!-- Book Name -->
+          <div class="col-md-6">
+            <label class="form-label">Kitap Adı <span class="text-danger">*</span></label>
+            <input
+              class="form-control"
+              name="bookName"
+              [(ngModel)]="book.bookName"
+              required
+              minlength="2"
+              placeholder="Örn: Suç ve Ceza"
+            />
+            <div class="text-danger small mt-1" *ngIf="f.submitted && f.controls['bookName']?.invalid">
+              Kitap adı zorunlu (en az 2 karakter).
+            </div>
+          </div>
+
+          <!-- Author -->
+          <div class="col-md-6">
+            <label class="form-label">Yazar</label>
+            <input
+              class="form-control"
+              name="author"
+              [(ngModel)]="book.author"
+              placeholder="Örn: Dostoyevski"
+            />
+          </div>
+
+          <!-- Page Count -->
+          <div class="col-md-4">
+            <label class="form-label">Sayfa Sayısı</label>
+            <input
+              class="form-control"
+              type="number"
+              name="pageCount"
+              [(ngModel)]="book.pageCount"
+              min="1"
+              placeholder="Örn: 320"
+            />
+          </div>
+
+          <!-- Category Dropdown -->
+          <div class="col-md-8">
+            <label class="form-label">Kategori</label>
+            <select class="form-select" name="category" [(ngModel)]="book.category">
+              <option value="">Kategori seçiniz...</option>
+              <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+
+          <!-- Register Date -->
+          <div class="col-md-6">
+            <label class="form-label">Kayıt Tarihi <span class="text-danger">*</span></label>
+
+            <div class="input-group">
+              <input
+                #regInput
+                class="form-control"
+                type="date"
+                name="registerDate"
+                [(ngModel)]="book.registerDate"
+                required
+              />
+              <button class="btn btn-outline-secondary" type="button" (click)="openPicker(regInput)">
+                📅
+              </button>
+            </div>
+
+            <div class="text-danger small mt-1" *ngIf="f.submitted && f.controls['registerDate']?.invalid">
+              Kayıt tarihi zorunlu.
+            </div>
+          </div>
+
+          <!-- Loan Date -->
+          <div class="col-md-6">
+            <label class="form-label">Ödünç Verme Tarihi</label>
+
+            <div class="input-group">
+              <input
+                #loanInput
+                class="form-control"
+                type="date"
+                name="loanDate"
+                [(ngModel)]="book.loanDate"
+                [attr.min]="book.registerDate || null"
+              />
+              <button class="btn btn-outline-secondary" type="button" (click)="openPicker(loanInput)">
+                📅
+              </button>
+            </div>
+
+            <div class="text-danger small mt-1"
+                 *ngIf="book.registerDate && book.loanDate && (book.loanDate < book.registerDate)">
+              Yanlış tarih: ödünç tarihi kayıt tarihinden önce olamaz.
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="col-12 mt-2 d-flex gap-2">
+            <button class="btn btn-primary px-4" type="submit">
+              Kaydet
+            </button>
+            <button class="btn btn-outline-danger" type="button" (click)="f.resetForm()">
+              Temizle
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+

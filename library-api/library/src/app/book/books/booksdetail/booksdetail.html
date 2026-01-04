@@ -1,0 +1,93 @@
+<div class="page">
+  <div class="container py-4" style="max-width: 900px;">
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+      <h3 class="m-0">Detay / Güncelle</h3>
+      <a class="btn btn-outline-secondary" routerLink="/books">← Geri</a>
+    </div>
+
+    <div *ngIf="loading" class="card p-3 mb-3">Yükleniyor...</div>
+
+    <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
+
+    <div class="card form-card p-4" *ngIf="book as b">
+      <form #f="ngForm" (ngSubmit)="update(f)">
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Kitap Adı <span class="text-danger">*</span></label>
+            <input class="form-control"
+                   name="bookName"
+                   [(ngModel)]="b.bookName"
+                   required minlength="2" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Yazar</label>
+            <input class="form-control"
+                   name="author"
+                   [(ngModel)]="b.author" />
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label">Sayfa</label>
+            <input class="form-control"
+                   type="number"
+                   name="pageCount"
+                   [(ngModel)]="b.pageCount"
+                   min="1" />
+          </div>
+
+          <div class="col-md-8">
+            <label class="form-label">Kategori</label>
+            <select class="form-select" name="category" [(ngModel)]="b.category">
+              <option value="">Seçiniz...</option>
+              <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Kayıt Tarihi <span class="text-danger">*</span></label>
+            <input class="form-control"
+                   type="date"
+                   name="registerDate"
+                   [(ngModel)]="b.registerDate"
+                   required />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Ödünç Tarihi</label>
+            <input class="form-control"
+                   type="date"
+                   name="loanDate"
+                   [(ngModel)]="b.loanDate" />
+          </div>
+
+          <div class="col-12 mt-2 d-flex gap-2">
+            <button class="btn btn-primary px-4"
+                    type="submit"
+                    [disabled]="saving || loading">
+              Güncelle
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- ✅ Sil butonu form DIŞINDA -->
+      <div class="mt-3">
+        <button class="btn btn-outline-danger"
+                type="button"
+                (click)="delete()"
+                [disabled]="saving || loading">
+          Sil
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+

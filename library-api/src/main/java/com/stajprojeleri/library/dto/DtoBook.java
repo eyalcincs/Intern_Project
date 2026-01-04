@@ -25,5 +25,7 @@ import lombok.Setter;
 	
 	private String category;
 	
+	private LocalDate registerDate;
+	
 	private LocalDate loanDate;
 }

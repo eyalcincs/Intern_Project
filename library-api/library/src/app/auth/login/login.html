@@ -1,0 +1,45 @@
+<div class="page">
+  <div class="card">
+    <div class="header">
+      <span class="icon" aria-hidden="true">📚</span>
+      <h1>Giriş Yap</h1>
+    </div>
+
+    <form (ngSubmit)="login()" class="form">
+      <label class="label" for="username">Kullanıcı Adı</label>
+      <input
+        id="username"
+        class="input"
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        placeholder="Kullanıcı adınızı girin"
+        autocomplete="username"
+        required
+      />
+
+      <label class="label" for="password">Şifre</label>
+      <input
+        id="password"
+        class="input"
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Şifrenizi girin"
+        autocomplete="current-password"
+        required
+      />
+
+      <button class="btn" type="submit">Giriş Yap</button>
+
+      <div class="bottom">
+        <span>Hesabın yok mu?</span>
+        <a routerLink="/register">Kayıt Ol</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+

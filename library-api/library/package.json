@@ -1,5 +1,5 @@
 {
-  "name": "library-frontend",
+  "name": "library",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:library_frontend": "node dist/library_frontend/server/server.mjs"
+    "serve:ssr:library": "node dist/library/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,

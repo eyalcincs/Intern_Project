@@ -65,7 +65,7 @@ public class JWTFilter extends OncePerRequestFilter {
     		
     		UserDetails	userDetails = userDetailsService.loadUserByUsername(username);  // Db usurname kontrolü yapar.
     			
-    			if(userDetails != null && jwtUtil.isTokenExpired(token)) {
+    			if(userDetails != null && !jwtUtil.isTokenExpired(token)) {
     				// Kişiyi SecurityContext'e koyabiliriz artık.
     				
     				UsernamePasswordAuthenticationToken  authentication = 

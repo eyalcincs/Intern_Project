@@ -41,7 +41,7 @@ public class AuthController implements IAuthController {
 	
 	
 	
-	@PostMapping(path = "/Login")
+	@PostMapping(path = "/login")
 	public AuthResponse login(@RequestBody AuthRequest request) {
 		
 		return userService.login(request);

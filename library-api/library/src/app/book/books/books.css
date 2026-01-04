@@ -1,0 +1,5 @@
+.page{ min-height:100vh; background:#f6f7fb; }
+.topbar{ border:0; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,.06); }
+.clear-btn{ position:absolute; right:10px; top:50%; transform:translateY(-50%); border-radius:999px; }
+.book-card{ border:0; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,.06); }
+.desc{ display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }

@@ -1,0 +1,94 @@
+<div class="page">
+  <div class="card">
+    <div class="header">
+      <span class="icon" aria-hidden="true">📝</span>
+      <h1>Kayıt Ol</h1>
+    </div>
+
+    <form (ngSubmit)="register()" class="form">
+      
+
+      <div class="row">
+        <div class="col">
+          <label class="label" for="name">Ad</label>
+          <input
+            id="name"
+            class="input"
+            type="text"
+            name="name"
+            [(ngModel)]="name"
+            placeholder="Adınızı girin"
+            autocomplete="given-name"
+            required
+          />
+        </div>
+
+        <div class="col">
+          <label class="label" for="surname">Soyad</label>
+          <input
+            id="surname"
+            class="input"
+            type="text"
+            name="surname"
+            [(ngModel)]="surname"
+            placeholder="Soyadınızı girin"
+            autocomplete="family-name"
+            required
+          />
+        </div>
+      </div>
+	  
+      <label class="label" for="email">E-posta</label>
+      <input
+        id="email"
+        class="input"
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="ornek@mail.com"
+        autocomplete="email"
+        required
+      />
+	  <label class="label" for="username">Kullanıcı Adı</label>
+	  <input
+	  	id="username"
+	  	class="input"
+	  	type="text"
+	  	name="username"
+	  	[(ngModel)]="username"
+	  	placeholder="Kullanıcı adınızı girin"
+	  	autocomplete="username"
+	  	required
+	  />
+      <label class="label" for="password">Şifre</label>
+      <input
+        id="password"
+        class="input"
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        placeholder="Şifrenizi girin"
+        autocomplete="new-password"
+        required
+      />
+
+      @if (error) {
+        <div class="error">{{ error }}</div>
+      }
+
+      <button class="btn" type="submit">Kayıt Ol</button>
+	  <div class="bottom">
+	    <span>Zaten hesabın var mı?</span>
+	    <a routerLink="/login">Giriş Yap</a>
+	  </div>
+
+    </form>
+
+    @if (toastVisible) {
+      <div class="toast">{{ toastMessage }}</div>
+    }
+  </div>
+</div>
+
+
+

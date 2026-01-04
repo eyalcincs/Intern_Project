@@ -26,7 +26,6 @@ import com.stajprojeleri.library.entity.*;
 @RestController
 @RequestMapping("/api/books")
 
-
 public class BookController {
 
 	@Autowired 

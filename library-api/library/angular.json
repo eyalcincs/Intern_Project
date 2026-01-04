@@ -3,11 +3,11 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": "db4d9ba0-5039-479d-8cf8-98cb45120467"
   },
   "newProjectRoot": "projects",
   "projects": {
-    "library_frontend": {
+    "library": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "library_frontend:build:production"
+              "buildTarget": "library:build:production"
             },
             "development": {
-              "buildTarget": "library_frontend:build:development"
+              "buildTarget": "library:build:development"
             }
           },
           "defaultConfiguration": "development"
