@@ -36,14 +36,19 @@
 
           <!-- Author -->
           <div class="col-md-6">
-            <label class="form-label">Yazar</label>
+            <label class="form-label">Yazar <span class="text-danger">*</span></label>
             <input
               class="form-control"
               name="author"
               [(ngModel)]="book.author"
               placeholder="Örn: Dostoyevski"
+			  required
             />
+			<div class="text-danger small mt-1" *ngIf="f.submitted && f.controls['author']?.invalid">
+		  		Yazar zorunlu.
+		  	</div>
           </div>
+		  
 
           <!-- Page Count -->
           <div class="col-md-4">
@@ -84,7 +89,8 @@
                 📅
               </button>
             </div>
-
+			
+			
             <div class="text-danger small mt-1" *ngIf="f.submitted && f.controls['registerDate']?.invalid">
               Kayıt tarihi zorunlu.
             </div>
@@ -114,15 +120,14 @@
             </div>
           </div>
 
-          <!-- Buttons -->
           <div class="col-12 mt-2 d-flex gap-2">
-            <button class="btn btn-primary px-4" type="submit">
-              Kaydet
-            </button>
-            <button class="btn btn-outline-danger" type="button" (click)="f.resetForm()">
-              Temizle
-            </button>
+			<button class="btn btn-primary px-4" type="submit">Kaydet</button>	  
+			<button class="btn btn-outline-danger" type="button" (click)="f.resetForm()">Temizle</button>
+            
+			
+            
           </div>
+	
         </div>
 
       </form>

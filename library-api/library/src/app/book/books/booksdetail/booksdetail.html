@@ -11,6 +11,7 @@
     <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
     <div *ngIf="successMsg" class="alert alert-success">{{ successMsg }}</div>
 
+    <!-- ✅ book gelmeden form yok -->
     <div class="card form-card p-4" *ngIf="book as b">
       <form #f="ngForm" (ngSubmit)="update(f)">
 
@@ -65,29 +66,15 @@
           </div>
 
           <div class="col-12 mt-2 d-flex gap-2">
-            <button class="btn btn-primary px-4"
-                    type="submit"
-                    [disabled]="saving || loading">
-              Güncelle
-            </button>
+            <button class="btn btn-primary px-4" type="submit">Güncelle</button>
+            <button class="btn btn-outline-danger" type="button" (click)="delete()">Sil</button>
           </div>
         </div>
 
       </form>
-
-      <!-- ✅ Sil butonu form DIŞINDA -->
-      <div class="mt-3">
-        <button class="btn btn-outline-danger"
-                type="button"
-                (click)="delete()"
-                [disabled]="saving || loading">
-          Sil
-        </button>
-      </div>
     </div>
 
   </div>
 </div>
-
 
 

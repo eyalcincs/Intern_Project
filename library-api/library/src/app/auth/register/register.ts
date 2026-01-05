@@ -1,62 +1,77 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
 export class Register {
-	
-  // form alanları
   name = '';
   surname = '';
   email = '';
   username = '';
   password = '';
 
-  // HTML’de @if(error) var
   error = '';
 
-  // HTML’de @if(toastVisible) var
   toastVisible = false;
   toastMessage = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  register() {
-	console.log('REGISTER BUTTON CLICKED'); // <-- bunu ekle
+  register(f: NgForm) {
+    console.log('REGISTER SUBMIT');
 
     this.error = '';
     this.hideToast();
 
-    // backend DTO alanların farklıysa burada eşleştireceğiz
-    this.auth.register({
-      name: this.name,
-      surname: this.surname,
-      email: this.email,
-      username: this.username,
-      password: this.password,
-    }).subscribe({
-      next: () => {
-        this.showToast('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsun...');
+    // Form geçersizse backend'e hiç gitme
+    if (f.invalid) {
+      this.showToast('Lütfen tüm zorunlu alanları doldurun.');
+      return;
+    }
 
-      },
-      error: (err) => {
-        this.error = err?.error?.message ?? 'Kayıt başarısız';
-        this.showToast(this.error);
-      }
-    });
+    this.auth
+      .register({
+        name: this.name.trim(),
+        surname: this.surname.trim(),
+        email: this.email.trim(),
+        username: this.username.trim(),
+        password: this.password,
+      })
+      .subscribe({
+        next: () => {
+          this.showToast('Kayıt başarılı! Giriş sayfasına yönlendiriliyorsun...');
+
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1200);
+        },
+        error: (err) => {
+          const msg =
+            err?.error?.message ??
+            err?.error?.error ??
+            (typeof err?.error === 'string' ? err.error : null) ??
+            'Kayıt başarısız';
+
+          this.error = msg;
+          this.showToast(msg);
+        },
+      });
   }
 
   private showToast(message: string) {
     this.toastMessage = message;
     this.toastVisible = true;
 
+
+    setTimeout(() => this.hideToast(), 2500);
   }
 
   private hideToast() {
@@ -64,6 +79,7 @@ export class Register {
     this.toastMessage = '';
   }
 }
+
 
 
 

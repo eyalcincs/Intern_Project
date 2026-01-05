@@ -5,7 +5,11 @@
       <h1>Giriş Yap</h1>
     </div>
 
-    <form (ngSubmit)="login()" class="form">
+	<!-- autocomplete -> Kayıtlı Kullanıcı İsimleri Önerme -->
+	<!-- [(ngModel)]="username" -> this.usurname içi dolar. -->
+	<!-- required -> Boş Alan Bırakma -->
+	
+    <form #f="ngForm" (ngSubmit)="login(f)" class="form">
       <label class="label" for="username">Kullanıcı Adı</label>
       <input
         id="username"
@@ -16,7 +20,15 @@
         placeholder="Kullanıcı adınızı girin"
         autocomplete="username"
         required
-      />
+        minlength="3"
+        #u="ngModel"
+		/>
+	  
+	  <!--Form submit edildiyse ve kullanıcı adı input’u hatalıysa göster.-->
+      <div class="error" *ngIf="f.submitted && u.invalid">   
+        <span *ngIf="u.errors?.['required']">Kullanıcı adı zorunlu.</span>
+        <span *ngIf="u.errors?.['minlength']">Kullanıcı adı en az 3 karakter olmalı.</span>
+      </div>
 
       <label class="label" for="password">Şifre</label>
       <input
@@ -28,9 +40,21 @@
         placeholder="Şifrenizi girin"
         autocomplete="current-password"
         required
+        minlength="6"
+        #p="ngModel"
       />
+	  
+	  <!--Form submit edildiyse ve password input’u hatalıysa göster.-->
+      <div class="error" *ngIf="f.submitted && p.invalid">
+        <span *ngIf="p.errors?.['required']">Şifre zorunlu.</span>
+        <span *ngIf="p.errors?.['minlength']">Şifre en az 6 karakter olmalı.</span>
+      </div>
 
-      <button class="btn" type="submit">Giriş Yap</button>
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <button class="btn" type="submit">
+        Giriş Yap
+      </button>
 
       <div class="bottom">
         <span>Hesabın yok mu?</span>
@@ -39,6 +63,7 @@
     </form>
   </div>
 </div>
+
 
 
 

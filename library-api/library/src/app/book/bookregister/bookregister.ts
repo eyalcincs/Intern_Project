@@ -17,7 +17,7 @@ export class Bookregister {
     pageCount: 0,
     author: '',
     category: '',
-    registerDate: null,
+    registerDate:'',
     loanDate: null,
   };
 
@@ -50,10 +50,11 @@ export class Bookregister {
     }
 
     this.bookService.create(this.book).subscribe({
-      next: () => {
-        this.successMsg = 'Kitap kaydedildi ✅';
-        setTimeout(() => this.router.navigateByUrl('/books'), 400);
-      },
+		next: () => {
+		    this.router.navigate(['/books'], {
+		      state: { flash: 'Kitap kaydedildi ✅' }
+		    });
+		  },
       error: (err) => {
         console.error('POST /api/books error:', err);
         this.errorMsg = 'Kayıt başarısız.';

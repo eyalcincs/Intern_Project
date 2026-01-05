@@ -15,7 +15,6 @@ import { BookDto, BookService } from '../book.service';
 export class Books implements OnInit, OnDestroy {
   searchTerm = '';
   books: BookDto[] = [];
-  loading = false;
   errorMsg = '';
 
   private sub?: Subscription;
@@ -38,17 +37,17 @@ export class Books implements OnInit, OnDestroy {
   load(): void {
     this.sub?.unsubscribe();
 
-    this.loading = true;
+ 
     this.errorMsg = '';
 
     this.sub = this.bookService.getAll().subscribe({
       next: (data: BookDto[]) => {
         const list = Array.isArray(data) ? data : [];
 
-        // ✅ yeni eklenen (id büyük) en üstte
+        //yeni eklenen (id büyük) en üstte
         this.books = [...list].sort((a, b) => Number(b.id) - Number(a.id));
 
-        this.loading = false;
+
         this.cdr.detectChanges();
       },
       error: (err: any) => {
@@ -57,11 +56,6 @@ export class Books implements OnInit, OnDestroy {
         this.errorMsg = err?.status === 403
           ? '403: Yetkisiz (token yok)'
           : 'Kitaplar alınamadı.';
-
-        this.loading = false;
-
-        // İstersen burada books'u sıfırlama, ekranda son hali kalsın:
-        // this.books = this.books;
 
         this.cdr.detectChanges();
       }
@@ -73,9 +67,7 @@ export class Books implements OnInit, OnDestroy {
     if (!q) return this.books;
 
     return this.books.filter(b =>
-      (b.bookName ?? '').toLowerCase().includes(q) ||
-      (b.author ?? '').toLowerCase().includes(q) ||
-      (b.category ?? '').toLowerCase().includes(q)
+      (b.bookName ?? '').toLowerCase().includes(q)
     );
   }
 

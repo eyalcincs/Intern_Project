@@ -123,16 +123,20 @@
     grid-template-columns: 1fr;
   }
 }
-.toast {
+.toast{
   position: fixed;
-  left: 18px;
   bottom: 18px;
-  background: rgba(17, 24, 39, 0.92);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  right: 18px;
   z-index: 9999;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
+.error{
+  margin-top: 10px;
+  color: #dc2626;
+  font-size: 13px;
+}
+

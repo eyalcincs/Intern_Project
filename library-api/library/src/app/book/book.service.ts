@@ -8,7 +8,7 @@ export type BookDto = {
   pageCount: number;
   author: string;
   category: string;
-  registerDate?: string | null;
+  registerDate?: string;
   loanDate?: string | null;
 };
 
@@ -17,7 +17,7 @@ export type BookIU = {
   pageCount: number;
   author: string;
   category: string;
-  registerDate?: string | null;
+  registerDate?: string;
   loanDate?: string | null;
 };
 

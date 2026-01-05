@@ -96,32 +96,30 @@ public class BookServiceImpl implements IBookService {
 
 	@Override
 	public DtoBook updateBook(Integer id, DtoBookIU dtoBookIU) {
-		DtoBook dtoBook =	getBookById(id);
-		
-		Optional<Book> optional =	bookRepository.findById(id);
-		
-		if(optional.isPresent()) {
-			Book dbbook = optional.get();
-			
-			bookRepository.delete(optional.get());
-			
-			dbbook.setBookName(dtoBookIU.getBookName());
-			dbbook.setPageCount(dtoBookIU.getPageCount());
-			dbbook.setAuthor(dtoBookIU.getAuthor());
-			dbbook.setRegisterDate(dtoBookIU.getRegisterDate());
-			dbbook.setLoanDate(dtoBookIU.getLoanDate());
-			dbbook.setCategory(dtoBookIU.getCategory());
-			
-			Book updateBook = bookRepository.save(dbbook);
-			
-			BeanUtils.copyProperties(updateBook, dtoBook);
-			
-			return dtoBook;
-		}
-		
-		return null;
+
+	    Optional<Book> optional = bookRepository.findById(id);
+
+	    if (optional.isPresent()) {
+	        Book dbbook = optional.get();
+
+	        // ❌ delete YOK
+	        dbbook.setBookName(dtoBookIU.getBookName());
+	        dbbook.setPageCount(dtoBookIU.getPageCount());
+	        dbbook.setAuthor(dtoBookIU.getAuthor());
+	        dbbook.setRegisterDate(dtoBookIU.getRegisterDate());
+	        dbbook.setLoanDate(dtoBookIU.getLoanDate());
+	        dbbook.setCategory(dtoBookIU.getCategory());
+
+	        Book updated = bookRepository.save(dbbook);
+
+	        DtoBook dtoBook = new DtoBook();
+	        BeanUtils.copyProperties(updated, dtoBook);
+	        return dtoBook;
+	    }
+
+	    return null; // istersen burada exception fırlat
 	}
-	
+
 	
 	
 }

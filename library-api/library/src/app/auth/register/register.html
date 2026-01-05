@@ -5,84 +5,101 @@
       <h1>Kayıt Ol</h1>
     </div>
 
-    <form (ngSubmit)="register()" class="form">
-      
+	<form #f="ngForm" (ngSubmit)="register(f)" class="form">
 
-      <div class="row">
-        <div class="col">
-          <label class="label" for="name">Ad</label>
-          <input
-            id="name"
-            class="input"
-            type="text"
-            name="name"
-            [(ngModel)]="name"
-            placeholder="Adınızı girin"
-            autocomplete="given-name"
-            required
-          />
-        </div>
+	  <div class="row">
+	    <div class="col">
+	      <label class="label" for="name">Ad</label>
+	      <input
+	        id="name"
+	        class="input"
+	        type="text"
+	        name="name"
+	        [(ngModel)]="name"
+	        required
+	        #nameCntrl="ngModel"
+			placeholder = "Adınızı Giriniz"
+	      />
+	      <div class="error" *ngIf="f.submitted && nameCntrl.invalid">Ad zorunlu.</div>
+	    </div>
 
-        <div class="col">
-          <label class="label" for="surname">Soyad</label>
-          <input
-            id="surname"
-            class="input"
-            type="text"
-            name="surname"
-            [(ngModel)]="surname"
-            placeholder="Soyadınızı girin"
-            autocomplete="family-name"
-            required
-          />
-        </div>
-      </div>
-	  
-      <label class="label" for="email">E-posta</label>
-      <input
-        id="email"
-        class="input"
-        type="email"
-        name="email"
-        [(ngModel)]="email"
-        placeholder="ornek@mail.com"
-        autocomplete="email"
-        required
-      />
-	  <label class="label" for="username">Kullanıcı Adı</label>
-	  <input
-	  	id="username"
-	  	class="input"
-	  	type="text"
-	  	name="username"
-	  	[(ngModel)]="username"
-	  	placeholder="Kullanıcı adınızı girin"
-	  	autocomplete="username"
-	  	required
-	  />
-      <label class="label" for="password">Şifre</label>
-      <input
-        id="password"
-        class="input"
-        type="password"
-        name="password"
-        [(ngModel)]="password"
-        placeholder="Şifrenizi girin"
-        autocomplete="new-password"
-        required
-      />
-
-      @if (error) {
-        <div class="error">{{ error }}</div>
-      }
-
-      <button class="btn" type="submit">Kayıt Ol</button>
-	  <div class="bottom">
-	    <span>Zaten hesabın var mı?</span>
-	    <a routerLink="/login">Giriş Yap</a>
+	    <div class="col">
+	      <label class="label" for="surname">Soyad</label>
+	      <input
+	        id="surname"
+	        class="input"
+	        type="text"
+	        name="surname"
+	        [(ngModel)]="surname"
+	        required
+	        #surnameCntrl="ngModel"
+			placeholder = "Soyadınızı Giriniz"
+	      />
+	      <div class="error" *ngIf="f.submitted && surnameCntrl.invalid">Soyad zorunlu.</div>
+	    </div>
 	  </div>
 
-    </form>
+	  <label class="label" for="email">E-posta</label>
+	  <input
+	    id="email"
+	    class="input"
+	    type="email"
+	    name="email"
+	    [(ngModel)]="email"
+	    required
+	    email
+	    #emailCntrl="ngModel"
+		placeholder = "ornek@gmail.com"
+	  />
+	  <div class="error" *ngIf="f.submitted && emailCntrl.invalid">
+	    @if (emailCntrl.errors?.['required']) { E-posta zorunlu. }
+	    @if (emailCntrl.errors?.['email']) { Geçerli bir e-posta girin. }
+	  </div>
+
+	  <label class="label" for="username">Kullanıcı Adı</label>
+	  <input
+	    id="username"
+	    class="input"
+	    type="text"
+	    name="username"
+	    [(ngModel)]="username"
+	    required
+	    minlength="3"
+	    #usernameCntrl="ngModel"
+		placeholder = "Kullanıcı Adınızı Giriniz"
+	  />
+	  <div class="error" *ngIf="f.submitted && usernameCntrl.invalid">
+	    @if (usernameCntrl.errors?.['required']) { Kullanıcı adı zorunlu. }
+	    @if (usernameCntrl.errors?.['minlength']) { En az 3 karakter. }
+	  </div>
+
+	  <label class="label" for="password">Şifre</label>
+	  <input
+	    id="password"
+	    class="input"
+	    type="password"
+	    name="password"
+	    [(ngModel)]="password"
+	    required
+	    minlength="6"
+	    #passwordCntrl="ngModel"
+		placeholder = "Şifre Giriniz"
+	  />
+	  <div class="error" *ngIf="f.submitted && passwordCntrl.invalid">
+	    @if (passwordCntrl.errors?.['required']) { Şifre zorunlu. }
+	    @if (passwordCntrl.errors?.['minlength']) { En az 6 karakter. }
+	  </div>
+
+	 
+	  
+	  <button class="btn" type="submit">Kayıt Ol</button>
+	  	  <div class="bottom">
+	  	    <span>Zaten hesabın var mı?</span>
+	  	    <a routerLink="/login">Giriş Yap</a>
+	  	  </div>
+
+	</form>
+
 
     @if (toastVisible) {
       <div class="toast">{{ toastMessage }}</div>
