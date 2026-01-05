@@ -102,7 +102,6 @@ public class BookServiceImpl implements IBookService {
 	    if (optional.isPresent()) {
 	        Book dbbook = optional.get();
 
-	        // ❌ delete YOK
 	        dbbook.setBookName(dtoBookIU.getBookName());
 	        dbbook.setPageCount(dtoBookIU.getPageCount());
 	        dbbook.setAuthor(dtoBookIU.getAuthor());
@@ -117,7 +116,7 @@ public class BookServiceImpl implements IBookService {
 	        return dtoBook;
 	    }
 
-	    return null; // istersen burada exception fırlat
+	    return null; 
 	}
 
 	

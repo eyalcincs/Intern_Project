@@ -36,12 +36,12 @@ public class JWTUtil {
 	//TOKEN OLUŞTURMA
 	public String generateToken(UserDetails userDetails) {
 		
-		Date now = new Date();									// Token üretilme ve ne zaman biteceğine dair hesaplama
+		Date now = new Date();											// Token üretilme ve ne zaman biteceğine dair hesaplama
 		Date expiry = new Date(now.getTime() + expirationMs);
 		
 		return Jwts.builder()
 		
-				.setSubject(userDetails.getUsername()) 									// token'ın sahibi. Tokenı kimden üreteceğimizi seçeriz
+				.setSubject(userDetails.getUsername()) 					// token'ın sahibi. Tokenı kimden üreteceğimizi seçeriz
                 .setIssuedAt(now)     									// token ne zaman üretildiğini söyler
                 .setExpiration(expiry)									// token ne zaman bitecek onu söyler
                 .signWith(getSignKey(), SignatureAlgorithm.HS256) 		// Burada verdiğim key ve hs256 algoritmasından token oluşturmak istediğimi söylüyorum
@@ -50,7 +50,7 @@ public class JWTUtil {
 
 	}
 
-    // Tokenı çözmek istersek bu metotu kullanırız																//Token içindeki bütün bilgileri okuruz
+    // Tokenı çözmek istersek bu metotu kullanırız						//Token içindeki bütün bilgileri okuruz
     public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSignKey()) 							// imzayı bununla doğrularız
@@ -61,13 +61,13 @@ public class JWTUtil {
     
     
     
-    public String getUsernameByToken(String token) {						// Yukarıdaki metotda tokenı çözdük daha sonra çözdüğümüz bu token da usurname i almak istiyorsak bu metotu kullanabiliriz.
+    public String getUsernameByToken(String token) {					// Yukarıdaki metotda tokenı çözdük daha sonra çözdüğümüz bu token da usurname i almak istiyorsak bu metotu kullanabiliriz.
 	    return extractAllClaims(token).getSubject();
 	}
     
     public boolean isTokenExpired(String token) {
-    	Date expiredDate = extractAllClaims(token).getExpiration();			// Çözülen metotdan Expirationu öğreniriz
-    																		// Şuanki zaman bitiş süresinden küçük olduğu sürece burası true döner aksi halde tokenın süresi bitmiş demektir 
+    	Date expiredDate = extractAllClaims(token).getExpiration();		// Çözülen metotdan Expirationu öğreniriz
+    																	// Şuanki zaman bitiş süresinden küçük olduğu sürece burası true döner aksi halde tokenın süresi bitmiş demektir 
     	return new Date().before(expiredDate);
     }
 

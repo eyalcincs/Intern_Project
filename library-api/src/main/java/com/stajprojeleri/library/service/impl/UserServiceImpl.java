@@ -76,7 +76,7 @@ public class UserServiceImpl implements IUserService {
 			return new AuthResponse(token);
 			
 		} catch (Exception e) {
-			 e.printStackTrace(); // <-- EN ÖNEMLİ SATIR
+			 e.printStackTrace(); 
 			    System.out.println("Kullanıcı adı veya şifre hatalı");
 			    
 			    
